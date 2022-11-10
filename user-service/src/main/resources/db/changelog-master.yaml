@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: changelog/v1-init-db.sql
+      relativeToChangelogFile: true
+  - include:
+      file: changelog/add-user-roles.sql
+      relativeToChangelogFile: true

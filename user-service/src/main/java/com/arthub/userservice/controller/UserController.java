@@ -1,0 +1,23 @@
+package com.arthub.userservice.controller;
+
+import com.arthub.userservice.dto.UserRegistrationDTO;
+import com.arthub.userservice.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+@Slf4j
+@AllArgsConstructor
+@RestController
+@RequestMapping("/api/v1/users")
+public class UserController {
+
+    private final UserService userService;
+
+    @PostMapping
+    public void registerUser(@RequestBody UserRegistrationDTO userRegistrationDTO){
+        log.info("New user registration {}", userRegistrationDTO);
+
+        userService.registerUser(userRegistrationDTO);
+    }
+}

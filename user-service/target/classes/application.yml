@@ -1,0 +1,46 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5432/user-service
+    username: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+#        hbm2ddl:
+#          auto: create
+    show-sql: true
+  liquibase:
+    change-log: 'classpath:/db/changelog-master.yaml'
+
+authentication:
+  public-key:
+    -----BEGIN PUBLIC KEY-----
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDoe87s/XI84NHcycL5fi9Ik/6G
+    OYxaPs0ItyumqaSCdUYRa0+uZBXd+rYI/zSJ2wnZPl39Kg1haIBtWO6F/8pRi1QV
+    tDYTjnYKjpuJe3S0hFWPkwELQ5FG84/xFczwvMqBgUCHvgbWVOzVOYAscZy0NCsh
+    orwEI79n8gGngQbNZwIDAQAB
+    -----END PUBLIC KEY-----
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+        SQL: DEBUG
+    com:
+      arthub:
+        userservice:
+          service:
+            impl: DEBUG
+          controller: DEBUG
+    feign: TRACE
