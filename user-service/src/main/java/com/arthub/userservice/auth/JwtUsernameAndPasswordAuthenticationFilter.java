@@ -1,11 +1,10 @@
 package com.arthub.userservice.auth;
 
 import com.arthub.userservice.config.properties.AuthenticationProperties;
+import com.arthub.userservice.entity.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,7 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -56,11 +56,25 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
 
+        List<GroupGrantedAuthority> authorities = (List<GroupGrantedAuthority>) authResult.getAuthorities();
+
+        Map<String, Set<String>> scope = authorities.stream()
+                .collect(Collectors.groupingBy(GroupGrantedAuthority::getGroupName,
+                        Collectors.mapping(GroupGrantedAuthority::getAuthority, Collectors.toSet())));
+
+        CustomUserDetails user = (CustomUserDetails) authResult.getPrincipal();
+        Map<String, Object> tokenBody = new HashMap<>();
+        tokenBody.put("id", user.getId());
+        tokenBody.put("firstName", user.getFirstName());
+        tokenBody.put("lastName", user.getLastName());
+        tokenBody.put("username", user.getUsername());
+        tokenBody.put("verified", user.isVerified());
+        tokenBody.put("scope", scope);
+
         byte[] key = authenticationProperties.getPublicKey().getBytes();
 
         String token = Jwts.builder()
-                .setSubject(authResult.getName())
-                .claim("authorities", authResult.getAuthorities())
+                .addClaims(tokenBody)
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusWeeks(2)))
                 .signWith(Keys.hmacShaKeyFor(key))

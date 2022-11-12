@@ -1,5 +1,6 @@
 package com.arthub.userservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class User {
 
     private String phoneNumber;
 
+    @JsonIgnore
     private String password;
 
     @Column(unique = true)

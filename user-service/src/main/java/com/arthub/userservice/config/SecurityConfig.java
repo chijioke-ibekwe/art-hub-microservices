@@ -1,6 +1,7 @@
 package com.arthub.userservice.config;
 
 import com.arthub.userservice.auth.CustomUserDetailsService;
+import com.arthub.userservice.auth.JwtTokenVerifier;
 import com.arthub.userservice.auth.JwtUsernameAndPasswordAuthenticationFilter;
 import com.arthub.userservice.config.properties.AuthenticationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), authenticationProperties))
+                .addFilterAfter(new JwtTokenVerifier(authenticationProperties), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/v1/users").permitAll()

@@ -13,6 +13,8 @@ import java.util.Collection;
 @NoArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
+    private Long id;
+
     private String firstName;
 
     private String lastName;
