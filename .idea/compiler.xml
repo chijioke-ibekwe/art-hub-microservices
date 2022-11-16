@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="art-service" />
+        <module name="auth-decoder" />
         <module name="user-service" />
       </profile>
     </annotationProcessing>
