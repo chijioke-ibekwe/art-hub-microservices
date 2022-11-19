@@ -12,4 +12,5 @@ import org.springframework.validation.annotation.Validated;
 public class AuthenticationProperties {
 
     private String publicKey;
+    private String privateKey;
 }

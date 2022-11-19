@@ -24,10 +24,10 @@ public class JwtTokenProvider {
     private String applicationName;
 
     @Value("${authentication.jwt.public-key:-----BEGIN PUBLIC KEY-----" +
-            "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDoe87s/XI84NHcycL5fi9Ik/6G" +
-            "OYxaPs0ItyumqaSCdUYRa0+uZBXd+rYI/zSJ2wnZPl39Kg1haIBtWO6F/8pRi1QV" +
-            "tDYTjnYKjpuJe3S0hFWPkwELQ5FG84/xFczwvMqBgUCHvgbWVOzVOYAscZy0NCsh" +
-            "orwEI79n8gGngQbNZwIDAQAB" +
+            "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAS+uydez9AqTwffToK7HLDDgJ" +
+            "VFBxBEv5bLtWesPY/1DJA2zI3ktn5tzWmAnDLjYF61RK3XAC3xIrfgvYWMZQiyNw" +
+            "GnQuzQXLiHw2QfFdycUyL7KXkFRxvIoP7WF6/yqPaZ2GQXAZoJuq8rwFpxjtww7a" +
+            "esXui3tZFG1fF9GEFQIDAQAB" +
             "-----END PUBLIC KEY-----}")
     private String jwtPublicKey;
 

@@ -1,5 +1,6 @@
 package com.arthub.userservice.auth;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,7 +32,7 @@ public class AuthenticationServerConfig extends AuthorizationServerConfigurerAda
 
     public AuthenticationServerConfig(DataSource dataSource, PasswordEncoder passwordEncoder,
                                       TokenStore tokenStore, TokenEnhancer tokenEnhancer,
-                                      AuthenticationManager authenticationManager,
+                                      @Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager,
                                       CustomUserDetailsService customUserDetailsService) {
         this.dataSource = dataSource;
         this.passwordEncoder = passwordEncoder;
