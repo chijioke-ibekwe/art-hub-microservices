@@ -1,7 +1,7 @@
-package com.auth.authdecoder.config;
+package com.arthub.userservice.auth;
 
-import com.auth.authdecoder.filter.JwtTokenFilter;
-import com.auth.authdecoder.provider.JwtTokenProvider;
+import com.arthub.userservice.filter.JwtTokenFilter;
+import com.arthub.userservice.provider.JwtTokenProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

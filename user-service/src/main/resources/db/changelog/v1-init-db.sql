@@ -27,6 +27,27 @@ create table roles (
     primary key (id)
 );
 
+create table oauth_client_details (
+    client_id                   varchar(255) not null,
+    client_secret               varchar(255),
+    resource_ids                varchar(255),
+    scope                       varchar(255),
+    authorized_grant_types      varchar(255),
+    web_server_redirect_uri     varchar(255),
+    authorities                 varchar(255),
+    access_token_validity       int4,
+    refresh_token_validity      int4,
+    additional_information      varchar(255),
+    autoapprove                varchar(255),
+    primary key (client_id)
+);
+
+create table clients_roles (
+    client_id       varchar(255) not null,
+    role_id         int8 not null,
+    primary key (client_id, role_id)
+);
+
 create table users (
     id                                  bigserial not null,
     first_name                          varchar(255),
@@ -56,6 +77,10 @@ alter table permissions add constraint fk_permissions_groups foreign key (group_
 alter table permissions_roles add constraint fk_permissions_roles_permissions foreign key (permission_id) references permissions;
 
 alter table permissions_roles add constraint fk_permissions_roles_roles foreign key (role_id) references roles;
+
+alter table clients_roles add constraint fk_clients_roles_clients foreign key (client_id) references oauth_client_details;
+
+alter table clients_roles add constraint fk_clients_roles_roles foreign key (role_id) references roles;
 
 alter table users_roles add constraint fk_users_roles_roles foreign key (role_id) references roles;
 

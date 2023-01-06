@@ -18,3 +18,15 @@ INSERT INTO permissions_roles (role_id, permission_id) VALUES (
 (SELECT id FROM roles WHERE name = 'ROLE_ADMIN'),
 (SELECT id FROM permissions WHERE name = 'user:verify')
 );
+
+INSERT INTO oauth_client_details (client_id, client_secret, resource_ids, scope, authorized_grant_types,
+web_server_redirect_uri, authorities, access_token_validity, refresh_token_validity, additional_information, autoapprove)
+VALUES
+('ADMIN_CLIENT_APP', '{bcrypt}$2a$10$EOs8VROb14e7ZnydvXECA.4LoIhPOoFHKvVF/iBZ/ker17Eocz4Vi',
+'USER_CLIENT_RESOURCE,USER_ADMIN_RESOURCE', 'ROLE_ADMIN,ROLE_USER', 'password,refresh_token,implicit',
+null, null, 900, 3600, '{"credential": "email"}', null);
+
+INSERT INTO clients_roles (client_id, role_id) VALUES (
+'ADMIN_CLIENT_APP',
+(SELECT id FROM roles WHERE name = 'ROLE_ADMIN')
+);

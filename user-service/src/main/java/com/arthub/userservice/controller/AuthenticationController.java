@@ -18,8 +18,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public OAuth2AccessToken login(@RequestBody @Valid LoginDTO loginDTO) {
-
+    public OAuth2AccessToken login(@RequestBody @Valid LoginDTO loginDTO) throws Exception {
         return authenticationService.loginUser(loginDTO);
     }
 }

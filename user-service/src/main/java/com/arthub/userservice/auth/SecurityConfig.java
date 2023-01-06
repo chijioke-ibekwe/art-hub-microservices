@@ -1,11 +1,11 @@
-package com.auth.authdecoder.config;
+package com.arthub.userservice.auth;
 
-import com.auth.authdecoder.provider.JwtTokenProvider;
+import com.arthub.userservice.provider.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/v1/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/v1/users", "/api/v1/auth/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(resourceServerConfigurer);

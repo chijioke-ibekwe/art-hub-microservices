@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 
 public interface AuthenticationService {
 
-    OAuth2AccessToken loginUser(LoginDTO loginDTO);
+    OAuth2AccessToken loginUser(LoginDTO loginDTO) throws Exception;
 
     OAuth2AccessToken refreshToken(String refreshToken) throws Exception;
 

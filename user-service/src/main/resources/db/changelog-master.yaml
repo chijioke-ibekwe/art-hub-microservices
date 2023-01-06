@@ -3,5 +3,5 @@ databaseChangeLog:
       file: changelog/v1-init-db.sql
       relativeToChangelogFile: true
   - include:
-      file: changelog/add-user-roles.sql
+      file: changelog/v1-init-data.sql
       relativeToChangelogFile: true

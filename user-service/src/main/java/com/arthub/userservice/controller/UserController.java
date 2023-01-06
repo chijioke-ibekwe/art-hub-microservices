@@ -28,6 +28,7 @@ public class UserController {
     @GetMapping
     @PreAuthorize("hasAuthority('user:verify')")
     public List<User> getAllUsers(){
+        log.info("Fetching users");
         return userService.getAllUsers();
     }
 }

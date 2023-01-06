@@ -1,6 +1,8 @@
 package com.arthub.userservice.auth;
 
+import com.arthub.userservice.config.CustomOauth2RequestFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.OAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 
@@ -30,16 +34,26 @@ public class AuthenticationServerConfig extends AuthorizationServerConfigurerAda
 
     private final CustomUserDetailsService customUserDetailsService;
 
+    private final ClientDetailsService clientDetailsService;
+
     public AuthenticationServerConfig(DataSource dataSource, PasswordEncoder passwordEncoder,
                                       TokenStore tokenStore, TokenEnhancer tokenEnhancer,
                                       @Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager,
-                                      CustomUserDetailsService customUserDetailsService) {
+                                      CustomUserDetailsService customUserDetailsService,
+                                      ClientDetailsService clientDetailsService) {
         this.dataSource = dataSource;
         this.passwordEncoder = passwordEncoder;
         this.tokenStore = tokenStore;
         this.tokenEnhancer = tokenEnhancer;
         this.authenticationManager = authenticationManager;
         this.customUserDetailsService = customUserDetailsService;
+        this.clientDetailsService = clientDetailsService;
+    }
+
+    @Bean
+    public OAuth2RequestFactory requestFactory() {
+        CustomOauth2RequestFactory requestFactory = new CustomOauth2RequestFactory(clientDetailsService);
+        return requestFactory;
     }
 
     @Override
