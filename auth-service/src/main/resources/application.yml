@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5431/auth-service
+    username: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+#        hbm2ddl:
+#          auto: create
+    show-sql: true
+  liquibase:
+    change-log: 'classpath:/db/changelog-master.yaml'
+
+provider:
+  settings:
+    issuer: http://auth-server:9000
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+        SQL: DEBUG
+    com:
+      arthub:
+        authservice:
+          config: DEBUG
+          repository: DEBUG
+    feign: TRACE
