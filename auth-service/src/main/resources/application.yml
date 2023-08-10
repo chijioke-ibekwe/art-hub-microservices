@@ -13,28 +13,24 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
-#        hbm2ddl:
-#          auto: create
     show-sql: true
   liquibase:
     change-log: 'classpath:/db/changelog-master.yaml'
-
-provider:
-  settings:
-    issuer: http://auth-server:9000
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8080
+          jws-algorithm: RS256
+          jwk-set-uri: http://127.0.0.1:8080/oauth2/jwks
 
 logging:
   level:
     org:
-      hibernate:
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
-        SQL: DEBUG
+      springframework:
+        security: TRACE
     com:
       arthub:
         authservice:
+          mapper: DEBUG
           config: DEBUG
-          repository: DEBUG
-    feign: TRACE
