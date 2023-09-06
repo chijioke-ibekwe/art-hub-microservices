@@ -7,10 +7,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="art-service" />
-        <module name="auth-decoder" />
+        <module name="auth-service" />
         <module name="user-service" />
+        <module name="art-service" />
+        <module name="amqp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="auth-decoder" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

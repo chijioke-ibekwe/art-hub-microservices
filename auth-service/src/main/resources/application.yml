@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    password: postgres
+    url: jdbc:postgresql://localhost:5431/auth-service
+    username: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  liquibase:
+    change-log: 'classpath:/db/changelog-master.yaml'
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8080
+          jws-algorithm: RS256
+          jwk-set-uri: http://127.0.0.1:8080/oauth2/jwks
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+    com:
+      arthub:
+        authservice:
+          mapper: DEBUG
+          config: DEBUG
